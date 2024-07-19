@@ -4,6 +4,7 @@
 /* styles.css */
 .root {
     -fx-background-color: tomato;
+    -fx-font-size: 20px;
 }
 
 .label {
@@ -11,13 +12,18 @@
     -fx-text-fill: darkblue;
     -fx-color: lime;
 }
-
+.tf-pin {
+	
+}
 .button {
     -fx-background-color: darkred;
     -fx-text-fill: white;
+    -fx-text-thick:1;
+    
 }
 
 .text {
+	
 }	
 
 .alert {
