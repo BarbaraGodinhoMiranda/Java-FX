@@ -29,7 +29,7 @@ public class Main extends Application {
 		 * Ogni pressione dei pulsanti deve far partire un alert che indichi (se il pin è giusto, e se le operazioni bancarie sono andate a buon fine e il saldo
 		 * aggiornato)
 		 */
- 
+		
  
 		Bancomat b1 = new Bancomat();
  
@@ -60,29 +60,44 @@ public class Main extends Application {
  
  
 		Button btnPin = new Button("Inserisci PIN");
-		btnPin.setPrefSize(90, 20);
+		//btnPin.setPrefSize(90, 20);
 		gridPane.add(btnPin, 0, 3);
+		btnPin.getStyleClass().add("tf-pin");
+		btnPin.setMaxSize(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
  
 		Button btnPreleva = new Button("Preleva");
-		btnPreleva.setPrefSize(90, 20);
+		//btnPreleva.setPrefSize(90, 20);
 		gridPane.add(btnPreleva, 0, 9);
 		btnPreleva.setVisible(false);
+		btnPreleva.setMaxSize(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
  
 		Button btnVersa = new Button("Versa");
-		btnVersa.setPrefSize(90, 20);
+		//btnVersa.setPrefSize(90, 20);
 		gridPane.add(btnVersa, 1, 9);
 		btnVersa.setVisible(false);
+		btnVersa.setMaxSize(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
 		
 		Button btnSaldo = new Button("Saldo");
-		btnSaldo.setPrefSize(90, 20);
+		//btnSaldo.setPrefSize(90, 20);
 		gridPane.add(btnSaldo, 2, 9);
 		btnSaldo.setVisible(false);
+		btnSaldo.setMaxSize(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
 		
  
 		btnPin.setOnAction(e -> {
             // Leggere l'input dai campi di testo
-        	 int pin  = Integer.parseInt(tfPin.getText());
+			if (tfPin.getText().isEmpty()) {
+		        Alert alert = new Alert(AlertType.WARNING);
+		        alert.setTitle("Errore");
+		        alert.setHeaderText("Campo PIN vuoto");
+		        alert.setContentText("Per favore, inserisci il PIN.");
+		        alert.showAndWait();
+		        return; 
+		    }
+			
+			int pin  = Integer.parseInt(tfPin.getText());
  
+        	 
         	if  (b1.check(pin)== true) {	
         		btnPreleva.setVisible(true);
       	      	btnVersa.setVisible(true);
@@ -94,7 +109,8 @@ public class Main extends Application {
 	            Alert alert = new Alert(AlertType.INFORMATION);
 	            alert.setTitle("Macchinetta");
 	            alert.setHeaderText("Pin Corretto!");
- 
+	            
+	            
 	            alert.showAndWait();
         	}
         	else {
@@ -159,7 +175,9 @@ public class Main extends Application {
 	            
 	            alert.showAndWait();
 		});
- 
+		// Caricare e applicare il file CSS
+	    String css = this.getClass().getResource("application.css").toExternalForm();
+	    sc.getStylesheets().add(css);
 		fr.close();
 		fr.show();
 	}
